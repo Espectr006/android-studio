@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_gray"
+    tools:context=".adapter.Pagamento">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forma de Pagamento"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_margin="20dp" />
+
+    <!-- Categoria -->
+    <TextView
+        android:id="@+id/txtCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categoria: Categoria de Exemplo"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/Dark_gray"
+        android:layout_margin="20dp"
+        android:gravity="start"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/container_radio_group"
+        android:layout_margin="10dp">
+        <RadioButton
+            android:id="@+id/CartaodeCredito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cartão de Crédito" />
+        <RadioButton
+            android:id="@+id/Pix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pix" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editCartaoCredito"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número do Cartão de Crédito"
+        android:background="@color/white"
+        android:padding="15dp"
+        android:layout_margin="20dp"
+        android:maxLines="1"
+        android:visibility="gone"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editPix"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Celular, CPF ou Email"
+        android:background="@color/white"
+        android:padding="15dp"
+        android:layout_margin="20dp"
+        android:maxLines="1"
+        android:visibility="gone"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pedidos:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/txtTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total:0 "
+        android:textColor="@color/Dark_gray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:layout_margin="20dp" />
+
+    <!-- Botão Bebidas -->
+
+
+    <Button
+        android:id="@+id/btPagar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pagar agora"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:backgroundTint="@color/red_dark"
+        android:layout_margin="20dp" />
+</LinearLayout>

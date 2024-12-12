@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_gray"
+    tools:context=".model.ProductsDetails">
+
+    <ImageView
+        android:id="@+id/btBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow"
+        android:layout_margin="20dp"/>
+
+    <ImageView
+        android:id="@+id/imgProduct"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btDecrease"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="-"
+                android:textSize="18sp"
+                android:textColor="@color/Dark_gray"
+                android:textStyle="bold"
+                app:cornerRadius="30dp"
+                android:backgroundTint="@color/white"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/txtAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="18sp"
+                android:textColor="@color/Dark_gray"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                />
+
+
+            <Button
+                android:id="@+id/btIncrese"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="+"
+                android:textSize="18sp"
+                android:textColor="@color/Dark_gray"
+                android:textStyle="bold"
+                app:cornerRadius="30dp"
+                android:backgroundTint="@color/white"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/txtProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acarajé"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:layout_margin="20dp"/>
+
+    <TextView
+        android:id="@+id/txtPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="$10.00"
+        android:textSize="18sp"
+        android:textColor="@color/red_dark"
+        android:textStyle="bold"
+        android:gravity="end"
+        android:layout_margin="20dp"/>
+
+
+</LinearLayout>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Molhos e bebidas"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_margin="20dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <RadioButton
+            android:id="@+id/Ketchup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ketchup"
+            />
+
+        <RadioButton
+            android:id="@+id/Maionese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maionese"
+            />
+
+        <RadioButton
+            android:id="@+id/Refrigerante"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Refrigerante"
+            />
+
+        <RadioButton
+            android:id="@+id/Suco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Suco"
+            />
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btConfirmar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirmar"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:backgroundTint="@color/red_dark"
+        android:padding="10dp"
+        app:cornerRadius="10dp"
+        android:layout_margin="20dp"
+        />
+
+
+</LinearLayout>
+

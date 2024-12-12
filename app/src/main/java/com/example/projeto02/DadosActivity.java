@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -51,6 +50,10 @@ public class DadosActivity extends AppCompatActivity {
             nomeUsuario.setText(currentUser.getDisplayName());
             emailUsuario.setText(currentUser.getEmail());
         }
+
+        // Desabilitar edição nos campos de nome e e-mail
+        nomeUsuario.setEnabled(false);
+        emailUsuario.setEnabled(false);
 
         preencherDadosFirestore();
 
@@ -96,79 +99,37 @@ public class DadosActivity extends AppCompatActivity {
     }
 
     private void atualizarDados() {
-        String nomeCompleto = nomeUsuario.getText().toString();
-        String email = emailUsuario.getText().toString();
         String cpf = editCPF.getText().toString();
         String telefone = editTelefone.getText().toString();
 
-        if (nomeCompleto.isEmpty() || email.isEmpty() || cpf.isEmpty() || telefone.isEmpty()) {
+        if (cpf.isEmpty() || telefone.isEmpty()) {
             Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE);
 
-
         if (currentUser != null) {
+            // Atualizar apenas CPF e telefone no Firestore
+            Map<String, Object> userUpdates = new HashMap<>();
+            userUpdates.put("cpf", cpf);
+            userUpdates.put("telefone", telefone);
 
-            if (!email.equals(currentUser.getEmail())) {
-                currentUser.updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-
-                            atualizarNomeUsuario(nomeCompleto, cpf, telefone);
-                        } else {
+            db.collection("Usuarios").document(usuarioID)
+                    .update(userUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(DadosActivity.this, "Erro ao atualizar o e-mail no Authentication", Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(DadosActivity.this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(DadosActivity.this, "Erro ao atualizar os dados no Firestore", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-            } else {
-
-                atualizarNomeUsuario(nomeCompleto, cpf, telefone);
-            }
+                    });
         }
     }
-
-    private void atualizarNomeUsuario(String nomeCompleto, String cpf, String telefone) {
-
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(nomeCompleto)
-                .build();
-
-        currentUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    // Atualizar no Firestore
-                    Map<String, Object> userUpdates = new HashMap<>();
-                    userUpdates.put("nomeCompleto", nomeCompleto);
-                    userUpdates.put("email", emailUsuario.getText().toString());
-                    userUpdates.put("cpf", cpf);
-                    userUpdates.put("telefone", telefone);
-
-                    db.collection("Usuarios").document(usuarioID)
-                            .update(userUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    progressBar.setVisibility(View.GONE);
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(DadosActivity.this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(DadosActivity.this, "Erro ao atualizar os dados no Firestore", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(DadosActivity.this, "Erro ao atualizar o nome no Authentication", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
 
     @Override
     protected void onStart() {

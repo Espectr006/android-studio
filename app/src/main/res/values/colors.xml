@@ -5,5 +5,7 @@
     <color name="red_dark">#861a1a</color>
     <color name="gray">#525050</color>
     <color name="purple_500">#670678</color>
+    <color name="Dark_gray">#9E9E9E</color>
+    <color name="light_gray">#E0E0E0</color>
 
 </resources>

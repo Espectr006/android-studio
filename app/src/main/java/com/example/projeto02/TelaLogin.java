@@ -11,18 +11,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.android.material.snackbar.Snackbar;
 
 public class TelaLogin extends AppCompatActivity {
 
@@ -71,7 +67,12 @@ public class TelaLogin extends AppCompatActivity {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 progressBar.setVisibility(View.VISIBLE);
-                new Handler().postDelayed(this::PerfilActivity, 3000);
+                // Atraso para simular carregamento, depois vai para a tela principal
+                new Handler().postDelayed(() -> {
+                    Intent intent = new Intent(TelaLogin.this, NavigationActivity.class);
+                    startActivity(intent);
+                    finish();
+                }, 3000);
             } else {
                 Snackbar snackbar = Snackbar.make(v, "Erro ao logar usuário", Snackbar.LENGTH_SHORT);
                 snackbar.setBackgroundTint(Color.WHITE);
@@ -88,14 +89,14 @@ public class TelaLogin extends AppCompatActivity {
         FirebaseUser usuarioAtual = FirebaseAuth.getInstance().getCurrentUser();
 
         if (usuarioAtual != null) {
-            PerfilActivity();
+            // Se o usuário já estiver logado, redireciona para a tela principal (NavigationActivity)
+            Intent intent = new Intent(TelaLogin.this, NavigationActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            // Se o usuário não estiver logado, ele permanece na tela de login
+            // Isso garante que o app não redirecione para a tela errada
         }
-    }
-
-    private void PerfilActivity() {
-        Intent intent = new Intent(TelaLogin.this, NavigationActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     private void Iniciar() {
