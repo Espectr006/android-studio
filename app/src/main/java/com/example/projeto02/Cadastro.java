@@ -3,6 +3,7 @@ package com.example.projeto02;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,7 +40,7 @@ public class Cadastro extends AppCompatActivity {
     private EditText nomeText, cademail, cadsenha;
     private Button CadButton;
     String usuarioID;
-    String[] mensagens = {"Preencha todos os campos","Cadastro realizado com sucesso"};
+    String[] mensagens = {"Preencha todos os campos","Cadastro realizado com sucesso!"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class Cadastro extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         CadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,10 +96,19 @@ public class Cadastro extends AppCompatActivity {
 
                     SalvarDadosUsuario();
 
+                    FirebaseAuth.getInstance().signOut();
                     Snackbar snackbar = Snackbar.make(v, mensagens[1],Snackbar.LENGTH_SHORT);
                     snackbar.setBackgroundTint(Color.WHITE);
                     snackbar.setTextColor(Color.BLACK);
                     snackbar.show();
+
+                    new Handler().postDelayed(() -> {
+
+                        Intent intent = new Intent(Cadastro.this, TelaLogin.class);
+                        startActivity(intent);
+                        finish();
+                    }, 2000);
+
                 }else{
                     String erro;
                     try {

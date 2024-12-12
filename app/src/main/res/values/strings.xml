@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Projeto02</string>
+    <string name="restaurante_app">Restaurante app</string>
+    <string name="r_pido_gostoso_e_feito_especialmente_para_voc">Rápido, gostoso e feito especialmente para você!</string>
+    <string name="Login">Login</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="inicio">Inicio</string>
+    <string name="pedidos">Pedidos</string>
+    <string name="Perfil">Perfil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

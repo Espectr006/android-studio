@@ -2,8 +2,16 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Projeto02" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+      <item name="android:statusBarColor">@color/red_dark</item>
     </style>
 
     <style name="Theme.Projeto02" parent="Base.Theme.Projeto02" />
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
 </resources>
