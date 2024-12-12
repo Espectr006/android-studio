@@ -21,9 +21,6 @@
             android:name=".DadosActivity"
             android:exported="false" />
         <activity
-            android:name=".PerfilActivity"
-            android:exported="false" />
-        <activity
             android:name=".TelaLogin"
             android:exported="false" />
         <activity
