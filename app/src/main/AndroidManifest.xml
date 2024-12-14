@@ -33,9 +33,6 @@
             android:name=".TelaLogin"
             android:exported="false" />
         <activity
-            android:name=".TelaPesquisar"
-            android:exported="false" />
-        <activity
             android:name=".Cadastro"
             android:exported="false" />
         <activity
