@@ -61,7 +61,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         if (usuarioAtual != null) {
 
-            Intent intent = new Intent(WelcomeActivity.this, PerfilActivity.class);
+            Intent intent = new Intent(WelcomeActivity.this, NavigationActivity.class);
             startActivity(intent);
             finish();
         }

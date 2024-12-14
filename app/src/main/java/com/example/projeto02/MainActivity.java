@@ -20,8 +20,15 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView bottomNavigationView = binding.bottomNavigation;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_frag);
+        NavigationUI.setupActionBarWithNavController(this, navController);
+
+        BottomNavigationView bottomNavigationView = binding.bottomNavigation;
+        NavController navController1 = Navigation.findNavController(this, R.id.nav_host_frag);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+    }
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_frag);
+        return navController.navigateUp() || super.onSupportNavigateUp();
     }
 }
