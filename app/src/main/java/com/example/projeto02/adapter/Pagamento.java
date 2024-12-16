@@ -3,6 +3,7 @@ package com.example.projeto02.adapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.projeto02.NavigationActivity;
 import com.example.projeto02.ObrigadoScreen;
 import com.example.projeto02.databinding.ActivityPagamentoBinding;
+import com.example.projeto02.model.Pedido;
+import com.example.projeto02.utils.PedidoManager;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -31,16 +34,18 @@ public class Pagamento extends AppCompatActivity {
         // Obter dados enviados pela intent
         String name = getIntent().getStringExtra("name");
         int amount = getIntent().getIntExtra("amount", 1);
-        double total = getIntent().getDoubleExtra("total", 0.0);
-        String saucesAndDrinks = getIntent().getStringExtra("saucesAndDrinks");
+        double total = getIntent().getDoubleExtra("Total", 0.0);
+        String saucesAndDrinks = getIntent().getStringExtra("MolhoseBebidas");
+        int imgProduct = getIntent().getIntExtra("imgProduct", 0);  // Obtém o ID da imagem do produto
 
         // Formatar valor total para moeda
         NumberFormat currencyFormat = DecimalFormat.getCurrencyInstance();
 
         // Atualizar os textos na interface
-        binding.txtTotal.setText(String.format("%s\nQuantidade: %d\nMolhos e Bebidas: %s\nTotal: %s",name, amount, saucesAndDrinks, currencyFormat.format(total)));
+        binding.txtTotal.setText(String.format("%s\nQuantidade: %d\nMolhos e Bebidas: %s\nTotal: %s",
+                name, amount, saucesAndDrinks, currencyFormat.format(total)));
 
-        // Esconder os campos inicialmente
+        // Esconder os campos de pagamento inicialmente
         binding.editPix.setVisibility(View.GONE);
         binding.editCartaoCredito.setVisibility(View.GONE);  // Esconde o campo Cartão de Crédito inicialmente
 
@@ -50,6 +55,10 @@ public class Pagamento extends AppCompatActivity {
                 // Pagamento com cartão de crédito
                 String cartaoCredito = binding.editCartaoCredito.getText().toString().trim();
                 if (!cartaoCredito.isEmpty()) {
+                    // Cria o pedido e adiciona à lista de pedidos
+                    Pedido pedido = new Pedido(imgProduct, name, amount, total, true);  // Marca como pago
+                    PedidoManager.getInstance().adicionarPedido(pedido); // Adiciona o pedido à lista
+
                     Toast.makeText(this, "Pagamento com Cartão de Crédito", Toast.LENGTH_SHORT).show();
                     showObrigadoScreen();
                 } else {
@@ -60,6 +69,10 @@ public class Pagamento extends AppCompatActivity {
                 String pix = binding.editPix.getText().toString().trim();
 
                 if (!pix.isEmpty()) {
+                    // Cria o pedido e adiciona à lista de pedidos
+                    Pedido pedido = new Pedido(imgProduct, name, amount, total, true);  // Marca como pago
+                    PedidoManager.getInstance().adicionarPedido(pedido); // Adiciona o pedido à lista
+
                     // Pagamento com Pix
                     Toast.makeText(this, "Pagamento com Pix", Toast.LENGTH_SHORT).show();
                     showObrigadoScreen();
@@ -97,8 +110,10 @@ public class Pagamento extends AppCompatActivity {
         startActivity(intent);
         finish(); // Finaliza a tela atual
 
-        // Após a tela de agradecimento, redirecionar para os pedidos
-        Intent pedidosIntent = new Intent(this, NavigationActivity.class); // Ou para o fragmento correspondente
-        startActivity(pedidosIntent);
+        new Handler().postDelayed(() -> {
+            Intent homeIntent = new Intent(this, NavigationActivity.class); // Altere MainActivity para sua tela inicial
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpa a pilha de atividades
+            startActivity(homeIntent);
+        }, 2000);
     }
 }

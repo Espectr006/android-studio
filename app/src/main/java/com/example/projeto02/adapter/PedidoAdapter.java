@@ -33,8 +33,8 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
     public void onBindViewHolder(@NonNull PedidoViewHolder holder, int position) {
         Pedido pedido = listaPedidos.get(position);
 
-        // Definindo a imagem do produto
-        holder.imgPedido.setImageResource(pedido.getImagemProduto());
+        // Carrega a imagem do produto usando o ID do recurso
+        holder.imgPedido.setImageResource(pedido.getImgProduto());
 
         // Definindo os textos
         holder.txtNomeProduto.setText(pedido.getNomeProduto());
@@ -67,4 +67,3 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
         }
     }
 }
-

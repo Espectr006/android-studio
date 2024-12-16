@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.projeto02.R;
 import com.example.projeto02.adapter.PedidoAdapter;
 import com.example.projeto02.model.Pedido;
-import com.example.projeto02.utils.PedidoManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidosFragment extends Fragment {
@@ -42,20 +45,34 @@ public class PedidosFragment extends Fragment {
         rvPedidos = view.findViewById(R.id.rvPedidos);
         TextView tvSemPedidos = view.findViewById(R.id.tvSemPedidos);
 
-        // Aqui você deve obter a lista de pedidos (incluindo imagem do produto)
-        listaPedidos = PedidoManager.getInstance().getPedidos();  // Certifique-se de que os pedidos têm a imagem associada
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String userId = auth.getCurrentUser().getUid();  // Obtém o ID do usuário autenticado
 
-        pedidosAdapter = new PedidoAdapter(listaPedidos);
-        rvPedidos.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvPedidos.setAdapter(pedidosAdapter);
+        db.collection("pedidos")
+                .document(userId)  // Filtra os pedidos do usuário
+                .collection("pedidos")
+                .whereEqualTo("pago", true)  // Filtra pedidos pagos
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        listaPedidos = new ArrayList<>();
+                        for (DocumentSnapshot document : task.getResult()) {
+                            Pedido pedido = document.toObject(Pedido.class);
+                            listaPedidos.add(pedido);
+                        }
+                        pedidosAdapter = new PedidoAdapter(listaPedidos);
+                        rvPedidos.setLayoutManager(new LinearLayoutManager(getContext()));
+                        rvPedidos.setAdapter(pedidosAdapter);
 
-        // Exibe mensagem se a lista estiver vazia
-        if (listaPedidos.isEmpty()) {
-            tvSemPedidos.setVisibility(View.VISIBLE);
-            rvPedidos.setVisibility(View.GONE);
-        } else {
-            tvSemPedidos.setVisibility(View.GONE);
-            rvPedidos.setVisibility(View.VISIBLE);
-        }
+                        if (listaPedidos.isEmpty()) {
+                            tvSemPedidos.setVisibility(View.VISIBLE);
+                            rvPedidos.setVisibility(View.GONE);
+                        } else {
+                            tvSemPedidos.setVisibility(View.GONE);
+                            rvPedidos.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
     }
 }

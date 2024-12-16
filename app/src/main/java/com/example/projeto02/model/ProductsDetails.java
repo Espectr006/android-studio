@@ -3,14 +3,12 @@ package com.example.projeto02.model;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.projeto02.MainActivity;
 import com.example.projeto02.adapter.Pagamento;
 import com.example.projeto02.databinding.ActivityProductsDetailsBinding;
-import com.example.projeto02.utils.PedidoManager;
 
 import java.text.DecimalFormat;
 
@@ -46,27 +44,27 @@ public class ProductsDetails extends AppCompatActivity {
             binding.imgProduct.setBackgroundResource(imgProduct);
             binding.txtProductName.setText(name);
             binding.txtPrice.setText(decimalFormat.format(newPrice));
+            binding.txtAmount.setText(String.valueOf(amount)); // Exibe a quantidade inicial
 
             // Configuração dos botões
-            setupButtons(imgProduct, price, decimalFormat, name);
+            setupButtons(price, decimalFormat, name);
         }
     }
 
-    private void setupButtons(int imgProduct, double unitPrice, DecimalFormat decimalFormat, String name) {
+    private void setupButtons(double unitPrice, DecimalFormat decimalFormat, String name) {
         // Botão de voltar
         binding.btBack.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            finish(); // Finaliza a atividade e volta para a tela anterior
         });
 
         // Botão de aumentar a quantidade
         binding.btIncrese.setOnClickListener(v -> {
-            if (amount < 3) {
+            if (amount < 10) { // Limita a quantidade a 10
                 amount++;
                 newPrice = unitPrice * amount; // Calcula o novo preço com base na quantidade
-                Log.d("ProductsDetails", "Aumentando quantidade: " + amount + ", Novo preço: " + newPrice);
                 updatePriceAndAmount(decimalFormat);
+            } else {
+                Toast.makeText(this, "Quantidade máxima atingida", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -75,25 +73,24 @@ public class ProductsDetails extends AppCompatActivity {
             if (amount > 1) {
                 amount--;
                 newPrice = unitPrice * amount; // Calcula o novo preço com base na quantidade
-                Log.d("ProductsDetails", "Diminuindo quantidade: " + amount + ", Novo preço: " + newPrice);
                 updatePriceAndAmount(decimalFormat);
+            } else {
+                Toast.makeText(this, "Quantidade mínima é 1", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Botão de confirmar
         binding.btConfirmar.setOnClickListener(v -> {
             String extras = getSelectedExtras();
-            Pedido pedido = new Pedido(imgProduct, name, amount, newPrice);  // Corrigido aqui
-            PedidoManager.getInstance().adicionarPedido(pedido);
-
             Intent intent = new Intent(this, Pagamento.class);
             intent.putExtra("name", name);
             intent.putExtra("amount", amount);
             intent.putExtra("Total", newPrice);
             intent.putExtra("MolhoseBebidas", extras);
+            intent.putExtra("imgProduct", getIntent().getExtras().getInt("imgProduct"));
             startActivity(intent);
         });
-    } // Fim do método setupButtons
+    }
 
     private void updatePriceAndAmount(DecimalFormat decimalFormat) {
         // Atualiza os textos da quantidade e do preço
@@ -128,7 +125,6 @@ public class ProductsDetails extends AppCompatActivity {
             extras.append("Suco ");
         }
 
-        Log.d("ProductsDetails", "Extras selecionados: " + extras);
         return extras.toString().trim();
     }
 }

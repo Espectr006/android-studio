@@ -1,16 +1,20 @@
 package com.example.projeto02.utils;
 
 import com.example.projeto02.model.Pedido;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class PedidoManager {
     private static PedidoManager instance;
-    private List<Pedido> pedidos;
+    private FirebaseFirestore db;
+    private CollectionReference pedidosRef;
 
     private PedidoManager() {
-        pedidos = new ArrayList<>();
+        db = FirebaseFirestore.getInstance();
+        pedidosRef = db.collection("pedidos");
     }
 
     public static PedidoManager getInstance() {
@@ -21,10 +25,22 @@ public class PedidoManager {
     }
 
     public void adicionarPedido(Pedido pedido) {
-        pedidos.add(pedido);
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        pedido.setUserId(userId);
+        pedidosRef.document(userId).collection("pedidos").add(pedido)
+                .addOnSuccessListener(documentReference -> {
+                    // Pedido salvo com sucesso
+                })
+                .addOnFailureListener(e -> {
+                    // Erro ao salvar pedido
+                });
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
+    public void getPedidosPagos(final OnCompleteListener<QuerySnapshot> listener) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        pedidosRef.document(userId).collection("pedidos")
+                .whereEqualTo("pago", true)  // Filtra pedidos pagos
+                .get()
+                .addOnCompleteListener(listener);
     }
 }

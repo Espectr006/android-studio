@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projeto02.adapter.PedidoAdapter;
 import com.example.projeto02.model.Pedido;
+import com.example.projeto02.utils.PedidoManager;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,24 +31,39 @@ public class PedidosActivity extends AppCompatActivity {
         rvPedidos = findViewById(R.id.rvPedidos);
         TextView tvSemPedidos = findViewById(R.id.tvSemPedidos);
 
-        // Simulação de pedidos (substitua com dados reais do banco de dados)
+        // Inicializa a lista de pedidos
         listaPedidos = new ArrayList<>();
-        listaPedidos.add(new Pedido(R.drawable.acaraje, "Acarajé", 1, 29.90));  // Adicionando imagem
-        listaPedidos.add(new Pedido(R.drawable.pastel, "Pastel", 2, 19.90));  // Adicionando imagem
-        listaPedidos.add(new Pedido(R.drawable.coca, "Coca-Cola 2L", 1, 10.00));  // Adicionando imagem
 
-        // Configuração da RecyclerView
-        pedidosAdapter = new PedidoAdapter(listaPedidos);  // Usando a variável correta
-        rvPedidos.setLayoutManager(new LinearLayoutManager(this));
-        rvPedidos.setAdapter(pedidosAdapter);
+        // Exemplo de como você pode buscar pedidos pagos
+        PedidoManager.getInstance().getPedidosPagos(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                if (querySnapshot != null) {
+                    for (DocumentSnapshot document : querySnapshot) {
+                        // Extraímos os dados do documento e criamos um Pedido
+                        Pedido pedido = document.toObject(Pedido.class);
+                        if (pedido != null) {
+                            listaPedidos.add(pedido);  // Adiciona o pedido à lista
+                        }
+                    }
+                    // Atualiza a RecyclerView com os pedidos
+                    pedidosAdapter = new PedidoAdapter(listaPedidos);
+                    rvPedidos.setLayoutManager(new LinearLayoutManager(this));
+                    rvPedidos.setAdapter(pedidosAdapter);
 
-        // Exibe mensagem se a lista estiver vazia
-        if (listaPedidos.isEmpty()) {
-            tvSemPedidos.setVisibility(View.VISIBLE);
-            rvPedidos.setVisibility(View.GONE);
-        } else {
-            tvSemPedidos.setVisibility(View.GONE);
-            rvPedidos.setVisibility(View.VISIBLE);
-        }
+                    // Exibe mensagem se a lista estiver vazia
+                    if (listaPedidos.isEmpty()) {
+                        tvSemPedidos.setVisibility(View.VISIBLE);
+                        rvPedidos.setVisibility(View.GONE);
+                    } else {
+                        tvSemPedidos.setVisibility(View.GONE);
+                        rvPedidos.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else {
+                // Caso ocorra erro ao buscar os pedidos
+                System.out.println("Erro ao obter pedidos: " + task.getException());
+            }
+        });
     }
 }
