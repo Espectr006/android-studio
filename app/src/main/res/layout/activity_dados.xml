@@ -26,7 +26,7 @@
     <EditText
         android:id="@+id/NomeCompleto2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
@@ -57,7 +57,7 @@
     <EditText
         android:id="@+id/EmailCompleto2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
@@ -85,19 +85,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/EmailCompleto2" />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/CPF2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/campos"
         android:hint="Digite seu CPF"
         android:inputType="number"
+        app:mask="___.___.___-__"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
         android:padding="10dp"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:maxLength="14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CPF" />
@@ -116,23 +118,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/CPF2" />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/Telefone2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:inputType="number"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/campos"
         android:hint="Digite seu telefone"
-        android:inputType="phone"
+        app:mask="+55 (__) ____-____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        android:background="@drawable/campos"
         android:padding="10dp"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:maxLength="15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Telefone" />
+        app:layout_constraintTop_toBottomOf="@id/Telefone"/>
 
     <Button
         android:id="@+id/btnAtualizar"
