@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- Imagem do Pedido -->
+    <ImageView
+        android:id="@+id/imgPedido"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_launcher_background" /> <!-- Substitua com o recurso de imagem adequado -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/txtNomeProduto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome do Produto"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txtQuantidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantidade"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtPrecoTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preço Total"
+            android:textSize="14sp" />
+
+        <!-- Mensagem "Pedido está sendo preparado" -->
+        <TextView
+            android:id="@+id/txtPedidoPreparando"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pedido está sendo preparado"
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_orange_dark"
+            android:visibility="gone"/> <!-- Inicialmente invisível -->
+    </LinearLayout>
+</LinearLayout>

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.projeto02.NavigationActivity;
 import com.example.projeto02.ObrigadoScreen;
 import com.example.projeto02.databinding.ActivityPagamentoBinding;
 
@@ -95,5 +96,9 @@ public class Pagamento extends AppCompatActivity {
         Intent intent = new Intent(this, ObrigadoScreen.class);
         startActivity(intent);
         finish(); // Finaliza a tela atual
+
+        // Após a tela de agradecimento, redirecionar para os pedidos
+        Intent pedidosIntent = new Intent(this, NavigationActivity.class); // Ou para o fragmento correspondente
+        startActivity(pedidosIntent);
     }
 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.projeto02.MainActivity;
 import com.example.projeto02.adapter.Pagamento;
 import com.example.projeto02.databinding.ActivityProductsDetailsBinding;
+import com.example.projeto02.utils.PedidoManager;
 
 import java.text.DecimalFormat;
 
@@ -47,11 +48,11 @@ public class ProductsDetails extends AppCompatActivity {
             binding.txtPrice.setText(decimalFormat.format(newPrice));
 
             // Configuração dos botões
-            setupButtons(price, decimalFormat, name);
+            setupButtons(imgProduct, price, decimalFormat, name);
         }
     }
 
-    private void setupButtons(double unitPrice, DecimalFormat decimalFormat, String name) {
+    private void setupButtons(int imgProduct, double unitPrice, DecimalFormat decimalFormat, String name) {
         // Botão de voltar
         binding.btBack.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
@@ -82,6 +83,9 @@ public class ProductsDetails extends AppCompatActivity {
         // Botão de confirmar
         binding.btConfirmar.setOnClickListener(v -> {
             String extras = getSelectedExtras();
+            Pedido pedido = new Pedido(imgProduct, name, amount, newPrice);  // Corrigido aqui
+            PedidoManager.getInstance().adicionarPedido(pedido);
+
             Intent intent = new Intent(this, Pagamento.class);
             intent.putExtra("name", name);
             intent.putExtra("amount", amount);
@@ -89,7 +93,7 @@ public class ProductsDetails extends AppCompatActivity {
             intent.putExtra("MolhoseBebidas", extras);
             startActivity(intent);
         });
-    }
+    } // Fim do método setupButtons
 
     private void updatePriceAndAmount(DecimalFormat decimalFormat) {
         // Atualiza os textos da quantidade e do preço

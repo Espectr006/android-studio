@@ -85,7 +85,7 @@ public class DadosActivity extends AppCompatActivity {
                     if (task.isSuccessful() && task.getResult() != null) {
                         Map<String, Object> data = task.getResult().getData();
                         if (data != null) {
-                            nomeUsuario.setText((String) data.get("nomeCompleto"));
+                            nomeUsuario.setText((String) data.get("nome"));
                             editCPF.setText((String) data.get("cpf"));
                             editTelefone.setText((String) data.get("telefone"));
                         }
@@ -141,7 +141,7 @@ public class DadosActivity extends AppCompatActivity {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                     if (documentSnapshot != null && documentSnapshot.exists()) {
-                        nomeUsuario.setText(documentSnapshot.getString("nomeCompleto"));
+                        nomeUsuario.setText(documentSnapshot.getString("nome"));
                         editCPF.setText(documentSnapshot.getString("cpf"));
                         editTelefone.setText(documentSnapshot.getString("telefone"));
                     }
