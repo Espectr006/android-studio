@@ -46,6 +46,7 @@ public class PerfilFragment extends Fragment {
         binding.buttonDados.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), DadosActivity.class);
             startActivity(intent);
+
         });
 
         binding.buttonDeslogar.setOnClickListener(v -> {

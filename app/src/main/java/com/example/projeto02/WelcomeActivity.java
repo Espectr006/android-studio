@@ -40,6 +40,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(WelcomeActivity.this, Cadastro.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -49,6 +50,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(WelcomeActivity.this, TelaLogin.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
@@ -64,6 +66,7 @@ public class WelcomeActivity extends AppCompatActivity {
             Intent intent = new Intent(WelcomeActivity.this, NavigationActivity.class);
             startActivity(intent);
             finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 }

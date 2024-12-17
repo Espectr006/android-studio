@@ -46,6 +46,7 @@ public class PerfilActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PerfilActivity.this, DadosActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -57,6 +58,7 @@ public class PerfilActivity extends AppCompatActivity {
                 Intent intent = new Intent(PerfilActivity.this, TelaLogin.class);
                 startActivity(intent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

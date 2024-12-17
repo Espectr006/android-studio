@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_frag);
         NavigationUI.setupActionBarWithNavController(this, navController);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         BottomNavigationView bottomNavigationView = binding.bottomNavigation;
         NavController navController1 = Navigation.findNavController(this, R.id.nav_host_frag);

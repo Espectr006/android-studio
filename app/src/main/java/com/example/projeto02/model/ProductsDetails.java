@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.projeto02.R;
 import com.example.projeto02.adapter.Pagamento;
 import com.example.projeto02.databinding.ActivityProductsDetailsBinding;
 
@@ -89,6 +90,7 @@ public class ProductsDetails extends AppCompatActivity {
             intent.putExtra("MolhoseBebidas", extras);
             intent.putExtra("imgProduct", getIntent().getExtras().getInt("imgProduct"));
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
     }
 

@@ -47,14 +47,21 @@ public class Pagamento extends AppCompatActivity {
 
         // Esconder os campos de pagamento inicialmente
         binding.editPix.setVisibility(View.GONE);
+        binding.iconePix.setVisibility(View.GONE); // Adicionado para esconder o ícone Pix inicialmente
         binding.editCartaoCredito.setVisibility(View.GONE);  // Esconde o campo Cartão de Crédito inicialmente
+        binding.editDataValidade.setVisibility(View.GONE);  // Esconde a data de validade
+        binding.editCVV.setVisibility(View.GONE);  // Esconde o CVV
+        binding.iconeCartaoCredito.setVisibility(View.GONE);  // Esconde o ícone do Cartão de Crédito inicialmente
 
         // Configurar botão de pagamento
         binding.btPagar.setOnClickListener(v -> {
             if (binding.CartaodeCredito.isChecked()) {
                 // Pagamento com cartão de crédito
                 String cartaoCredito = binding.editCartaoCredito.getText().toString().trim();
-                if (!cartaoCredito.isEmpty()) {
+                String dataValidade = binding.editDataValidade.getText().toString().trim();
+                String cvv = binding.editCVV.getText().toString().trim();
+
+                if (!cartaoCredito.isEmpty() && !dataValidade.isEmpty() && !cvv.isEmpty()) {
                     // Cria o pedido e adiciona à lista de pedidos
                     Pedido pedido = new Pedido(imgProduct, name, amount, total, true);  // Marca como pago
                     PedidoManager.getInstance().adicionarPedido(pedido); // Adiciona o pedido à lista
@@ -62,7 +69,7 @@ public class Pagamento extends AppCompatActivity {
                     Toast.makeText(this, "Pagamento com Cartão de Crédito", Toast.LENGTH_SHORT).show();
                     showObrigadoScreen();
                 } else {
-                    Toast.makeText(this, "Preencha o campo do Cartão de Crédito", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Preencha todos os campos do Cartão de Crédito", Toast.LENGTH_SHORT).show();
                 }
             } else if (binding.Pix.isChecked()) {
                 // Exibir campo Pix
@@ -88,9 +95,14 @@ public class Pagamento extends AppCompatActivity {
         binding.Pix.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 binding.editPix.setVisibility(View.VISIBLE);  // Mostra o campo Pix
+                binding.iconePix.setVisibility(View.VISIBLE);  // Mostra o ícone Pix
                 binding.editCartaoCredito.setVisibility(View.GONE);  // Esconde o campo Cartão de Crédito
+                binding.editDataValidade.setVisibility(View.GONE);  // Esconde a data de validade
+                binding.editCVV.setVisibility(View.GONE);  // Esconde o CVV
+                binding.iconeCartaoCredito.setVisibility(View.GONE);  // Esconde o ícone do Cartão
             } else {
                 binding.editPix.setVisibility(View.GONE);  // Esconde o campo Pix
+                binding.iconePix.setVisibility(View.GONE);  // Esconde o ícone Pix
             }
         });
 
@@ -98,9 +110,16 @@ public class Pagamento extends AppCompatActivity {
         binding.CartaodeCredito.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 binding.editCartaoCredito.setVisibility(View.VISIBLE);  // Mostra o campo Cartão de Crédito
+                binding.editDataValidade.setVisibility(View.VISIBLE);  // Mostra a data de validade
+                binding.editCVV.setVisibility(View.VISIBLE);  // Mostra o CVV
+                binding.iconeCartaoCredito.setVisibility(View.VISIBLE);  // Mostra o ícone do Cartão
                 binding.editPix.setVisibility(View.GONE);  // Esconde o campo Pix
+                binding.iconePix.setVisibility(View.GONE);  // Esconde o ícone Pix
             } else {
                 binding.editCartaoCredito.setVisibility(View.GONE);  // Esconde o campo Cartão de Crédito
+                binding.editDataValidade.setVisibility(View.GONE);  // Esconde a data de validade
+                binding.editCVV.setVisibility(View.GONE);  // Esconde o CVV
+                binding.iconeCartaoCredito.setVisibility(View.GONE);  // Esconde o ícone do Cartão
             }
         });
     }

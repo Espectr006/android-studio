@@ -50,6 +50,7 @@ public class PedidosActivity extends AppCompatActivity {
                     pedidosAdapter = new PedidoAdapter(listaPedidos);
                     rvPedidos.setLayoutManager(new LinearLayoutManager(this));
                     rvPedidos.setAdapter(pedidosAdapter);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                     // Exibe mensagem se a lista estiver vazia
                     if (listaPedidos.isEmpty()) {

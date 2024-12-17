@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -47,29 +46,102 @@
             android:text="Pix" />
     </RadioGroup>
 
-    <EditText
-        android:id="@+id/editCartaoCredito"
+    <!-- Layout para o número do cartão e campo Pix -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Número do Cartão de Crédito"
-        android:background="@color/white"
-        android:padding="15dp"
+        android:orientation="horizontal"
         android:layout_margin="20dp"
-        android:maxLines="1"
-        android:visibility="gone"
-        android:inputType="text" />
+        android:gravity="center">
 
-    <EditText
-        android:id="@+id/editPix"
+        <!-- Número do Cartão -->
+        <com.santalu.maskara.widget.MaskEditText
+            android:id="@+id/editCartaoCredito"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:hint="Número do Cartão"
+            android:inputType="number"
+            app:mask="____ ____ ____ ____"
+            app:maskCharacter="_"
+            app:maskStyle="completable"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iconeCartaoCredito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_credit_card_24"
+            android:visibility="gone" />
+
+        <!-- Campo Pix -->
+        <EditText
+            android:id="@+id/editPix"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Celular, CPF ou Email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:background="@color/white"
+            android:visibility="gone" />
+
+        <!-- Ícone do Pix -->
+        <ImageView
+            android:id="@+id/iconePix"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_pix"
+            android:layout_marginStart="10dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- Layout para a validade e CVV -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Celular, CPF ou Email"
-        android:background="@color/white"
-        android:padding="15dp"
+        android:orientation="horizontal"
         android:layout_margin="20dp"
-        android:maxLines="1"
-        android:visibility="gone"
-        android:inputType="textEmailAddress" />
+        android:gravity="center">
+
+        <!-- Data de Validade -->
+        <com.santalu.maskara.widget.MaskEditText
+            android:id="@+id/editDataValidade"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:hint="MM/AA"
+            android:inputType="number"
+            app:mask="__/__"
+            app:maskCharacter="_"
+            app:maskStyle="completable"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:background="@color/white"
+            android:visibility="gone" />
+
+        <!-- CVV -->
+        <com.santalu.maskara.widget.MaskEditText
+            android:id="@+id/editCVV"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:hint="CVV"
+            app:mask="___"
+            app:maskCharacter="_"
+            app:maskStyle="completable"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:background="@color/white"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,9 +163,7 @@
         android:gravity="start"
         android:layout_margin="20dp" />
 
-    <!-- Botão Bebidas -->
-
-
+    <!-- Botão Pagar -->
     <Button
         android:id="@+id/btPagar"
         android:layout_width="match_parent"
@@ -105,6 +175,4 @@
         android:padding="15dp"
         android:backgroundTint="@color/red_dark"
         android:layout_margin="20dp" />
-
-
 </LinearLayout>

@@ -37,5 +37,6 @@ public class NavigationActivity extends AppCompatActivity {
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_frag);
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

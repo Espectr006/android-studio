@@ -60,6 +60,7 @@ public class Cadastro extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Cadastro.this, TelaLogin.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

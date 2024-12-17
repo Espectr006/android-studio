@@ -43,6 +43,7 @@ public class TelaLogin extends AppCompatActivity {
         tela_cadastro.setOnClickListener(v -> {
             Intent intent = new Intent(TelaLogin.this, Cadastro.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         LoginButton.setOnClickListener(v -> {
@@ -92,6 +93,7 @@ public class TelaLogin extends AppCompatActivity {
         Intent intent = new Intent(TelaLogin.this, NavigationActivity.class);
         startActivity(intent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void Iniciar() {
